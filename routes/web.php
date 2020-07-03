@@ -15,5 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
+Route::get('/items', 'ItemController@index');
+Route::get('/items/create', 'ItemController@create');
+Route::post('/items', 'ItemController@store');

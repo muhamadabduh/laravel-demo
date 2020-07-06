@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemsTable extends Migration
+class CreateItemTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('item_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->longText('description')->nullable();
-            $table->integer('price')->nullable();
-            $table->integer('stock')->nullable();
+            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('item_id');
 
-            $table->timestamps();
+            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('item_id')->references('id')->on('items');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_tag');
     }
 }
